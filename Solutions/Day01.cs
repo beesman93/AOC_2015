@@ -15,15 +15,21 @@ namespace AOC_2015
         }
         public override ValueTask<string> Solve_1()
         {
-            var ans = 0;
-            throw new NotImplementedException();
+            long ans = 0;
+            foreach(char c in _input[0])
+                ans+= c == '(' ? 1 : -1;
             return new($"{ans}");
         }
         public override ValueTask<string> Solve_2()
         {
-            var ans = 0;
-            throw new NotImplementedException();
-            return new($"{ans}");
+            long ans = 0;
+            for (int i = 0; i < _input[0].Length; i++)
+            {
+                ans += _input[0][i] == '(' ? 1 : -1;
+                if (ans < 0)
+                    return new($"{i + 1}");
+            }
+            return new($"nop.");
         }
     }
 }
