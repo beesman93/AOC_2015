@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AoCHelper;
 
-namespace AOC_2024
+namespace AOC_2015
 {
     internal class Day01 : BaseDayWithInput
     {
