@@ -15,13 +15,13 @@ namespace AOC_2015
         }
         public override ValueTask<string> Solve_1()
         {
-            var ans = 0;
+            long ans = 0;
 
             return new($"{ans}");
         }
         public override ValueTask<string> Solve_2()
         {
-            var ans = 0;
+            long ans = 0;
 
             return new($"{ans}");
         }
