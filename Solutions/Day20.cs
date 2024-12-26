@@ -9,13 +9,13 @@ namespace AOC_2015
 {
     internal class Day20: BaseDayWithInput
     {
-        int minPresents;
+        readonly int minPresents;
         public Day20()
         {
             minPresents = int.Parse(_input[0]); 
         }
 
-        static HashSet<int> getDivisors(int n)
+        static HashSet<int> GetDivisors(int n)
         {
             HashSet<int> divisors = [];
             for (int i = 1; i <= Math.Sqrt(n); i++)
@@ -32,7 +32,7 @@ namespace AOC_2015
             for(int i = 1; i < int.MaxValue; i++)
             {
                 int presents = 0;
-                foreach (int divisor in getDivisors(i))
+                foreach (int divisor in GetDivisors(i))
                     presents += divisor * 10;
                 if (presents >= minPresents)
                     return new($"{i}");
@@ -45,7 +45,7 @@ namespace AOC_2015
             for (int i = 1; i < int.MaxValue; i++)
             {
                 int presents = 0;
-                foreach (int divisor in getDivisors(i))
+                foreach (int divisor in GetDivisors(i))
                 {
                     if (!divisorUsage.ContainsKey(divisor))
                         divisorUsage[divisor] = 0;

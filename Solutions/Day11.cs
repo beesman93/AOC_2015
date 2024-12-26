@@ -13,15 +13,9 @@ namespace AOC_2015
         {
 
         }
-
-        class SantaPassword
+        class SantaPassword(string pwd)
         {
-            public int[] PWD { get; set; }
-
-            public SantaPassword(string pwd)
-            {
-                PWD = pwd.Select(x => x - 'a').ToArray();
-            }
+            public int[] PWD { get; set; } = pwd.Select(x => x - 'a').ToArray();
 
             public bool ContainsIlleaglChar() => PWD.Any(x => x == 'i' - 'a' || x == 'o' - 'a' || x == 'l' - 'a');
             public bool ContainsStraight() => PWD.Where((x, i) => i < PWD.Length - 2 && PWD[i + 1] == x + 1 && PWD[i + 2] == x + 2).Any();
@@ -49,15 +43,13 @@ namespace AOC_2015
 
         public override ValueTask<string> Solve_1()
         {
-            long ans = 0;
             SantaPassword santaPassword = new (_input[0]);
             while(!santaPassword.IsValid())
                 santaPassword++;
-            return new($"{santaPassword.ToString()}");
+            return new($"{santaPassword}");
         }
         public override ValueTask<string> Solve_2()
         {
-            long ans = 0;
             SantaPassword santaPassword = new(_input[0]);
             while (!santaPassword.IsValid())
                 santaPassword++;

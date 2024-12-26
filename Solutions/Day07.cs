@@ -32,11 +32,12 @@ namespace AOC_2015
                 if (ushort.TryParse(id, out var val))
                     Value = val;
             }
-            public void resetValue() => _value = null;
+            public void ResetValue() => _value = null;
             public ushort Value
             {
                 get
                 {
+                    #pragma warning disable CS8602 // That's the point, it autofills when needed from nested components
                     if (!_value.HasValue) _value = Op switch
                     {
                         OP.AND => (ushort)(Input1.Value & Input2.Value),
@@ -48,6 +49,7 @@ namespace AOC_2015
                         OP.LITERAL => throw new Exception($"Value of {Op} operation has to be set."),
                         _ => throw new NotImplementedException("OP not implemented")
                     };
+                    #pragma warning restore CS8602
                     return _value.Value;
                 }
                 set
@@ -57,13 +59,13 @@ namespace AOC_2015
             }
         }
 
-        private Component getOrAdd(string id, ref Dictionary<string, Component> components)
+        private static Component GetOrAdd(string id, ref Dictionary<string, Component> components)
         {
             if (!components.ContainsKey(id)) components[id] = new Component(id);
             return components[id];
         }
 
-        Dictionary<string,Component> components;
+        readonly Dictionary<string,Component> components;
 
         public Day07()
         {
@@ -72,9 +74,9 @@ namespace AOC_2015
             {
                 var lr = line.Split(" -> ");
                 var l = lr[0].Split(" ");
-                Component? input1 = l.Length==3 ? getOrAdd(l[0], ref components) : null;
-                Component? input2 = getOrAdd(l.Last(), ref components);
-                Component? output = getOrAdd(lr[1], ref components);
+                Component? input1 = l.Length==3 ? GetOrAdd(l[0], ref components) : null;
+                Component? input2 = GetOrAdd(l.Last(), ref components);
+                Component? output = GetOrAdd(lr[1], ref components);
                 output.Input1 = input1;
                 output.Input2 = input2;
                 output.Op = l.Length > 1 ? l[^2] switch
@@ -96,7 +98,7 @@ namespace AOC_2015
         {
             var newBliteral = components["a"].Value;
             foreach (var comp in components.Values.Where(x => x.Op!=OP.LITERAL))
-                comp.resetValue();
+                comp.ResetValue();
             components["b"].Value = newBliteral;
             return new($"{components["a"].Value}");
         }

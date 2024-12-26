@@ -12,8 +12,8 @@ namespace AOC_2015
         public Day05()
         {
         }
-        private static readonly HashSet<char> vowels = new HashSet<char> { 'a', 'e', 'i', 'o', 'u' };
-        private static readonly HashSet<string> badPairs = new HashSet<string> { "ab", "cd", "pq", "xy" };
+        private static readonly HashSet<char> vowels = ['a', 'e', 'i', 'o', 'u'];
+        private static readonly HashSet<string> badPairs = ["ab", "cd", "pq", "xy"];
         private static bool IsNice(string s)
         {
             bool hasDouble = false;
@@ -40,14 +40,10 @@ namespace AOC_2015
                 if (i > 0)
                 {
                     var pair = s[(i - 1)..(i + 1)];
-                    if (pairs.ContainsKey(pair))
+                    if (!pairs.TryAdd(pair, i))
                     {
                         if (pairs[pair] < i - 1)
                             hasRepeatedPair = true;
-                    }
-                    else
-                    {
-                        pairs.Add(pair, i);
                     }
                 }
                 if (i>1 && s[i] == s[i - 2]) hasSpacedDouble = true;

@@ -9,7 +9,7 @@ namespace AOC_2015
 {
     internal class Day02: BaseDayWithInput
     {
-        List<int[]> boxes;
+        readonly List<int[]> boxes;
         public Day02()
         {
             boxes = [];

@@ -9,15 +9,16 @@ namespace AOC_2015
 {
     internal class Day09: BaseDayWithInput
     {
-        Dictionary<string, int> cities_index;
-        List<(string, string, int)> init_distances;
-        int[,] distances;
+        readonly Dictionary<string, int> cities_index;
+        readonly List<(string, string, int)> init_distances;
+        readonly int[,] distances;
         List<List<int?>> cache;
-        int N;
+        readonly int N;
         public Day09()
         {
             cities_index = [];
             init_distances = [];
+            cache = [];
             foreach (var line in _input)
             {
                 var parts = line.Split(" = ");
@@ -35,18 +36,20 @@ namespace AOC_2015
             }
         }
 
-        int totalCost(int mask, int currCityIndex, bool weWantLongestRoute)
+        int TotalCost(int mask, int currCityIndex, bool weWantLongestRoute)
         {
             if (mask == (1 << cities_index.Count) - 1)
                 return 0;
             if (cache[currCityIndex][mask].HasValue)
+                #pragma warning disable CS8629 // It's checked above
                 return cache[currCityIndex][mask].Value;
+                #pragma warning restore CS8629
             int ans = weWantLongestRoute?0 : int.MaxValue;
             for (int i = 0; i < N; i++)
                 if ((mask & (1 << i)) == 0)
                     ans = weWantLongestRoute
-                        ? Math.Max( ans, distances[currCityIndex,i] + totalCost(mask | (1 << i), i, weWantLongestRoute))
-                        : Math.Min( ans, distances[currCityIndex, i] + totalCost(mask | (1 << i), i, weWantLongestRoute));
+                        ? Math.Max( ans, distances[currCityIndex,i] + TotalCost(mask | (1 << i), i, weWantLongestRoute))
+                        : Math.Min( ans, distances[currCityIndex, i] + TotalCost(mask | (1 << i), i, weWantLongestRoute));
             cache[currCityIndex][mask] = ans;
             return ans;
         }
@@ -54,7 +57,7 @@ namespace AOC_2015
 
         int SolveTspNoReturn(int startingCity, bool weWantLongestRoute = false)
         {
-            cache = new List<List<int?>>();
+            cache = [];
             for (int i = 0; i < N; i++)
             {
                 List<int?> row = [];
@@ -62,7 +65,7 @@ namespace AOC_2015
                     row.Add(null);
                 cache.Add(row);
             }
-            return totalCost(1 << startingCity, startingCity,weWantLongestRoute);
+            return TotalCost(1 << startingCity, startingCity,weWantLongestRoute);
         }
         public override ValueTask<string> Solve_1()
         {

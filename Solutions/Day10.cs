@@ -15,7 +15,8 @@ namespace AOC_2015
         {
 
         }
-        string LookAndSay(string s)
+
+        static string LookAndSay(string s)
         {
             StringBuilder sb = new();
             for (int i = 0; i < s.Length; i++)
@@ -32,14 +33,14 @@ namespace AOC_2015
             return sb.ToString();
         }
 
-        long LookAndSayDigitsAfterN(string s, int n)
+        static long LookAndSayDigitsAfterN(string s, int n)
         {
             for (int i = 0; i < n; i++)
                 s = LookAndSay(s);
             return s.Length;
         }
 
-        long LookAndSayDigitsAfterNConwayConstAprox(string s, int n)
+        static long LookAndSayDigitsAfterNConwayConstAprox(string s, int n)
         {
             long ans = s.Length;
             for(int i = 0; i < n; i++)

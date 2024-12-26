@@ -9,9 +9,9 @@ namespace AOC_2015
 {
     internal class Day18: BaseDayWithInput
     {
-        bool[,] map;
-        int[,] aliveNeighbours;
-        int N;//assume NxN grid, if not replace N(...GetLength(0)) for M(...GetLength(1)) for j/y
+        readonly bool[,] map;
+        readonly int[,] aliveNeighbours;
+        readonly int N;//assume NxN grid, if not replace N(...GetLength(0)) for M(...GetLength(1)) for j/y
         public Day18()
         {
             N = _input.Length;

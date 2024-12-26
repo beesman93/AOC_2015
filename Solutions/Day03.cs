@@ -13,7 +13,7 @@ namespace AOC_2015
         {
 
         }
-        private static (int x, int y) dir(char c) => c switch
+        private static (int x, int y) Dir(char c) => c switch
         {
             '^' => (0, 1),
             'v' => (0, -1),
@@ -27,7 +27,7 @@ namespace AOC_2015
             HashSet<(int x, int y)> visited = new() {{position}};
             foreach(char c in _input[0])
             {
-                position = (position.x + dir(c).x, position.y + dir(c).y);
+                position = (position.x + Dir(c).x, position.y + Dir(c).y);
                 visited.Add(position);
             }
             return new($"{visited.Count}");
@@ -42,12 +42,12 @@ namespace AOC_2015
             {
                 if (realSanta)
                 {
-                    position = (position.x + dir(c).x, position.y + dir(c).y);
+                    position = (position.x + Dir(c).x, position.y + Dir(c).y);
                     visited.Add(position);
                 }
                 else
                 {
-                    position2 = (position2.x + dir(c).x, position2.y + dir(c).y);
+                    position2 = (position2.x + Dir(c).x, position2.y + Dir(c).y);
                     visited.Add(position2);
                 }
                 realSanta = !realSanta;

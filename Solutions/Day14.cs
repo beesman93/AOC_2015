@@ -11,7 +11,7 @@ namespace AOC_2015
     {
         class Reindeer
         {
-            public string Name { get; set; }
+            public required string Name { get; set; }
             public int Speed { get; set; }
             public int FlyTime { get; set; }
             public int RestTime { get; set; }
@@ -47,7 +47,7 @@ namespace AOC_2015
                 return distanceSoFar;
             }
         }
-        List<Reindeer> reindeers;
+        readonly List<Reindeer> reindeers;
         public Day14()
         {
             reindeers = [];

@@ -9,10 +9,10 @@ namespace AOC_2015
 {
     internal class Day19: BaseDayWithInput
     {
-        Dictionary<string, List<string>> replacements;
-        HashSet<string> molecules;
-        string initial;
-        int maxShorteningByStep;
+        readonly Dictionary<string, List<string>> replacements;
+        readonly HashSet<string> molecules;
+        readonly string initial;
+        readonly int maxShorteningByStep;
         public Day19()
         {
             molecules = [];
@@ -27,13 +27,13 @@ namespace AOC_2015
             }
             initial = _input.Last();
         }
-        List<string> getReplacements(string s, string find, string replacement)
+        static List<string> GetReplacements(string s, string find, string replacement)
         {
             List<string> result = [];
             int index = s.IndexOf(find);
             while (index != -1)
             {
-                result.Add(s.Substring(0, index) + replacement + s.Substring(index + find.Length));
+                result.Add(string.Concat(s.AsSpan(0, index), replacement, s.AsSpan(index + find.Length)));
                 index = s.IndexOf(find, index + 1);
             }
             return result;
@@ -42,12 +42,12 @@ namespace AOC_2015
         {
             foreach(var key in replacements.Keys)
                 foreach (var replacement in replacements[key])
-                    getReplacements(initial, key, replacement).ForEach(mol => molecules.Add(mol));
+                    GetReplacements(initial, key, replacement).ForEach(mol => molecules.Add(mol));
             return new($"{molecules.Count}");
         }
         int best = int.MaxValue;
-        Dictionary<(string, int), int> DP = [];
-        int shortestSynthesisBackwards(string s, int steps)
+        readonly Dictionary<(string, int), int> DP = [];
+        int ShortestSynthesisBackwards(string s, int steps)
         {
             if (DP.ContainsKey((s, steps)))
                 return DP[(s, steps)];
@@ -69,13 +69,13 @@ namespace AOC_2015
                 {
                     foreach (var replacement in replacements[key])
                     {
-                        getReplacements(s, replacement, key).Where(mol => !DP.ContainsKey((mol, steps + 1))).ToList().ForEach(mol => ret = Math.Min(ret, shortestSynthesisBackwards(mol, steps + 1)));
+                        GetReplacements(s, replacement, key).Where(mol => !DP.ContainsKey((mol, steps + 1))).ToList().ForEach(mol => ret = Math.Min(ret, ShortestSynthesisBackwards(mol, steps + 1)));
                     }
                 }
             }
             DP[(s, steps)] = ret;
             return ret;
         }
-        public override ValueTask<string> Solve_2() => new($"{shortestSynthesisBackwards(initial, 0)}");
+        public override ValueTask<string> Solve_2() => new($"{ShortestSynthesisBackwards(initial, 0)}");
     }
 }

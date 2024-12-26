@@ -20,9 +20,9 @@ namespace AOC_2015
             public Action action;
             public int x1, y1, x2, y2;
         }
-        bool[,] grid;
-        int[,] grid2;
-        List<Instruction> instructions;
+        readonly bool[,] grid;
+        readonly int[,] grid2;
+        readonly List<Instruction> instructions;
         public Day06()
         {
             grid = new bool[1000, 1000];

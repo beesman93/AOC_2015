@@ -9,10 +9,10 @@ namespace AOC_2015
 {
     internal class Day17: BaseDayWithInput
     {
-        List<int> containers;
-        int N;
-        Dictionary<(uint mask,int nog), long> dp;
-        HashSet<uint> validMasks;
+        readonly List<int> containers;
+        readonly int N;
+        readonly Dictionary<(uint mask,int nog), long> dp;
+        readonly HashSet<uint> validMasks;
         public Day17()
         {
             dp = [];
@@ -22,13 +22,13 @@ namespace AOC_2015
                 containers.Add(int.Parse(line));
             N = containers.Count;
         }
-        private long countWaysDP(uint maskUsed, int remainingEggNog)
+        private long CountWaysDP(uint maskUsed, int remainingEggNog)
         {
             if(!dp.ContainsKey((maskUsed,remainingEggNog))) 
-                dp[(maskUsed,remainingEggNog)] = countWays(maskUsed, remainingEggNog);
+                dp[(maskUsed,remainingEggNog)] = CountWays(maskUsed, remainingEggNog);
             return dp[(maskUsed,remainingEggNog)];
         }
-        private long countWays(uint maskUsed, int remainingEggNog)
+        private long CountWays(uint maskUsed, int remainingEggNog)
         {
             if (remainingEggNog <  0) return 0;
             if (remainingEggNog == 0)
@@ -41,13 +41,13 @@ namespace AOC_2015
             for (int i = 0; i < N; i++)
             {
                 if(((1 << i) & maskUsed) !=0) continue;
-                sumWays += countWaysDP(maskUsed | ((uint)1 << i), remainingEggNog - containers[i]);
+                sumWays += CountWaysDP(maskUsed | ((uint)1 << i), remainingEggNog - containers[i]);
             }
             return sumWays;
         }
         public override ValueTask<string> Solve_1()
         {
-            countWaysDP(0, 150);
+            CountWaysDP(0, 150);
             return new($"{validMasks.Count}");
         }
         public override ValueTask<string> Solve_2()

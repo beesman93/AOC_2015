@@ -20,7 +20,7 @@ namespace AOC_2015
             for(int i =0;i < int.MaxValue; i++)
             {
                 md5.ComputeHash(Encoding.ASCII.GetBytes(_input[0]+i));
-                if (md5.Hash[0] == 0 && md5.Hash[1]==0 && md5.Hash[2]<16)
+                if (md5.Hash is not null && md5.Hash[0] == 0 && md5.Hash[1]==0 && md5.Hash[2]<16)
                     return new($"{i}");
             }
             return new($"nada");
@@ -31,7 +31,7 @@ namespace AOC_2015
             for (int i = 0; i < int.MaxValue; i++)
             {
                 md5.ComputeHash(Encoding.ASCII.GetBytes(_input[0] + i));
-                if (md5.Hash[0] == 0 && md5.Hash[1] == 0 && md5.Hash[2] == 0)
+                if (md5.Hash is not null && md5.Hash[0] == 0 && md5.Hash[1] == 0 && md5.Hash[2] == 0)
                     return new($"{i}");
             }
             return new($"nada");

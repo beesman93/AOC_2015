@@ -9,7 +9,7 @@ namespace AOC_2015
 {
     internal class Day13: BaseDayWithInput
     {
-        Dictionary<char, Dictionary<char, int>> happiness;
+        readonly Dictionary<char, Dictionary<char, int>> happiness;
         public Day13()
         {
             happiness = [];

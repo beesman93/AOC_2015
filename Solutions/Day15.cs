@@ -55,7 +55,7 @@ namespace AOC_2015
                     TexturePositiveCookies.Add(ingredient);
             }
         }
-        Dictionary<(int, int, int, int, int, int?), int> cache = [];
+        readonly Dictionary<(int, int, int, int, int, int?), int> cache = [];
 
         public int GetBestCookieP1((int, int, int, int, int, int?) key)
         {
