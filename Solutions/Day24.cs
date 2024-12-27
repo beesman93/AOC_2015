@@ -10,14 +10,12 @@ namespace AOC_2015
 {
     internal class Day24: BaseDayWithInput
     {
-        int N;
-        int maxMask;
-        int[] boxes;
-        int maxWeight;
+        readonly int N;
+        readonly int[] boxes;
+        readonly int maxWeight;
         public Day24()
         {
             N = _input.Length;
-            maxMask = (1 << N) - 1;
             boxes = new int[N];
             for (int i = 0; i < N; i++)
                 boxes[N-i-1] = int.Parse(_input[i]);
@@ -25,7 +23,7 @@ namespace AOC_2015
 
         }
 
-        Dictionary<int, int> dpMaskWeight = [];
+        readonly Dictionary<int, int> dpMaskWeight = [];
         int GetWeight(int mask)
         {
             if (dpMaskWeight.TryGetValue(mask, out int value)) return value;
@@ -36,7 +34,7 @@ namespace AOC_2015
             dpMaskWeight[mask] = weight;
             return weight;
         }
-        Dictionary<(int usedMask, int weight), HashSet<int>> DP = [];
+        readonly Dictionary<(int usedMask, int weight), HashSet<int>> DP = [];
         uint bestMaskLen = uint.MaxValue;
         HashSet<int> GetMasksToCompleteNumber(int usedMask, int weight)
         {
