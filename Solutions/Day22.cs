@@ -44,6 +44,7 @@ namespace AOC_2015
                 => HashCode.Combine(turn, bossHP, playerHP, mana, shieldTimer, poisonTimer, rechargeTimer, hardMode ? 1 : 0);
             //without override, it will use the default implementation and the bool tanks it to unusable
             //goes from 20ms to 2minutes!! another way is to use enum or int instead of bool
+            //https://devblogs.microsoft.com/premier-developer/performance-implications-of-default-struct-equality-in-c/
         }
         static private Gamestate TurnStart(Gamestate state)
         {
