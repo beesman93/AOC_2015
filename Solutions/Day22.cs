@@ -40,6 +40,12 @@ namespace AOC_2015
             public int shieldTimer;
             public int poisonTimer;
             public int rechargeTimer;
+
+            public override readonly bool Equals(object? obj) => obj is Gamestate o 
+                && turn == o.turn && bossHP == o.bossHP && playerHP == o.playerHP
+                && mana == o.mana && shieldTimer == o.shieldTimer
+                && poisonTimer == o.poisonTimer
+                && rechargeTimer == o.rechargeTimer && hardMode == o.hardMode;
             public override readonly int GetHashCode()
                 => HashCode.Combine(turn, bossHP, playerHP, mana, shieldTimer, poisonTimer, rechargeTimer, hardMode ? 1 : 0);
             //without override, it will use the default implementation and the bool tanks it to unusable
